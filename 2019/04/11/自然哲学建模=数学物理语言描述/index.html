@@ -1,42 +1,738 @@
-include mixins
+<!DOCTYPE html>
 
-extends partial/layout
 
-block site_title
-    != page.title + " · " + config.title
 
-block description
-    - var desc = page.desc || strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150);
-    meta(name="description", content=desc)
+  
 
-block content
-    .autopagerize_page_element: .content: .post-page
-        include mixins
-        +make_post(page, true)
-        .share
-            span= __('share')
-            | &nbsp;
-            span.soc
-                a.fa.fa-bookmark(href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();", ref="nofollow", target="_blank")
-            span.soc
-                a.fa.fa-weibo(href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(d.title),'&appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));")
-            span.soc
-                a.fa.fa-twitter(href=url_for("http://twitter.com/home?status=" + "" + config.url + "/" + page.path + "%20" + config.title + "%20" + page.title + ""))
-        - var prev = page.prev ? page.prev.path : false;
-        - var next = page.next ? page.next.path : false;
-        .pagination
-            p.clearfix
-                if prev
-                    span.pre.pagbuttons
-                        a(role="navigation",href=url_for(prev), title=page.prev.title)
-                            i.fa.fa-angle-double-left
-                            |&nbsp;
-                            != __('prev_post')+': ' + page.prev.title
-                if next
-                    span &nbsp;
-                    span.next.pagbuttons
-                        a(role="navigation",href=url_for(next), title=page.next.title)
-                            != __('next_post')+': ' + page.next.title
-                            |&nbsp;
-                            i.fa.fa-angle-double-right
-        include partial/comments
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数学是描述自然哲学的抽象语言如果说冥冥之中有一种真理—-自然世界的运作规律=真理=自然科学，致敬牛顿的那本著名的几何书，我会把它叫做“自然哲学”。 ——————分割线——————————-以下我说的每句话，都蕴涵着我自己的生活经历，看到那些文字，我会想起一些事，可能读者你不同的生活经验不一样，不能产生共鸣，但是，我会尽量在我记得来源的情况下，给个链接或者《书名》或者学科背景知识联想，知识爆炸时代，">
+<meta name="keywords" content="Tridu33">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数学是描述自然哲学的抽象语言">
+<meta property="og:url" content="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/index.html">
+<meta property="og:site_name" content="Tridu33">
+<meta property="og:description" content="数学是描述自然哲学的抽象语言如果说冥冥之中有一种真理—-自然世界的运作规律=真理=自然科学，致敬牛顿的那本著名的几何书，我会把它叫做“自然哲学”。 ——————分割线——————————-以下我说的每句话，都蕴涵着我自己的生活经历，看到那些文字，我会想起一些事，可能读者你不同的生活经验不一样，不能产生共鸣，但是，我会尽量在我记得来源的情况下，给个链接或者《书名》或者学科背景知识联想，知识爆炸时代，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/_v_images/看到一个不错的想法_1536028092_23707.png">
+<meta property="og:image" content="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/_v_images/说地真对这是自己悟道_1536028260_29633.png">
+<meta property="og:updated_time" content="2019-05-04T13:26:36.564Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数学是描述自然哲学的抽象语言">
+<meta name="twitter:description" content="数学是描述自然哲学的抽象语言如果说冥冥之中有一种真理—-自然世界的运作规律=真理=自然科学，致敬牛顿的那本著名的几何书，我会把它叫做“自然哲学”。 ——————分割线——————————-以下我说的每句话，都蕴涵着我自己的生活经历，看到那些文字，我会想起一些事，可能读者你不同的生活经验不一样，不能产生共鸣，但是，我会尽量在我记得来源的情况下，给个链接或者《书名》或者学科背景知识联想，知识爆炸时代，">
+<meta name="twitter:image" content="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/_v_images/看到一个不错的想法_1536028092_23707.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/"/>
+
+
+
+
+
+  <title>数学是描述自然哲学的抽象语言 | Tridu33</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tridu33</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学海无涯妙生津</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/11/自然哲学建模=数学物理语言描述/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tridu33">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tridu33">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数学是描述自然哲学的抽象语言</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-11T17:42:10+08:00">
+                2019-04-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数学是描述自然哲学的抽象语言"><a href="#数学是描述自然哲学的抽象语言" class="headerlink" title="数学是描述自然哲学的抽象语言"></a>数学是描述自然哲学的抽象语言</h1><p>如果说冥冥之中有一种真理—-自然世界的运作规律=真理=自然科学，致敬牛顿的那本著名的几何书，我会把它叫做“自然哲学”。</p>
+<p>——————分割线——————————-以下我说的每句话，都蕴涵着我自己的生活经历，看到那些文字，我会想起一些事，可能读者你不同的生活经验不一样，不能产生共鸣，但是，我会尽量在我记得来源的情况下，给个链接或者《书名》或者学科背景知识联想，知识爆炸时代，很多知识，你需要的知识自己思考，提问，然后印证自己的思考。</p>
+<p>这些年来，我在思考，我在反思，我在琢磨自己的道路，我也在想世界万物的原理数学，是对自然哲学的规律的抽象语言，对实际问题建模，就是数学建模，而物理，恰恰是用数学语言去总结描述自然科学的一门学科，所以你会发现，大学的物理就像在学数学，而大学的数学，就像是在学逻辑学！之前一些学霸调侃的梗，我非常地喜欢，数学是火，点亮物理的灯；物理是灯，照亮化学的路，化学是路，引向生物的坑，生物是坑，埋葬理科生。虽说只是俏皮话，但是我们不难明白，其实这个世界的运作规律就是如此，各种自然科学的分类，在我看来，只是不同层级下的对“自然哲学（或者说冥冥中的真理，世界万物的运作规律）”，在不同层级的描述，你在研究生物的时候，你可以把各种理化反应假设为“公理”，在此之上研究规律。其实，世界上的各种学科，都是在不同学科已经证明的“公理假设”的层面上，进行研究的。因为研究化学的情况下，你可以把原子分子之间的：”反应“，理解为一种”公理假设“，在上面研究。为了说明白生物上的一些生理现象，如果抽象到物理本质，世界本源去研究就太过分了，没有必要，这就是学科分工的来源。作为领先世界100年的学科，数学物理绝对是最接近自然哲学的学科。在我看来，没有”理论数学“和“应用数学”所有数学都是“描述自然的，实用的！”！理论数学没有实际用途，不是没有，而是不会用，是“暂时没用”。数学最本质的公理，定义，是<strong>发现</strong>了那些想当然就正确的的自然现象中抽象提炼出来的“<strong>定义</strong>=描述方法”，在此之上，经过“正确的”（数学分析等教会我们，最最最基本的知识是基于什么样的假设的，需要怎么做才能做本质地触及根本的自然规律？什么样的计算推演是符合最基本的假设的，而不是在瞎算！算理很重要，不满足理论空间最基本的假设，实在瞎算，就像康德定义出实数，数论，区间套定理等等严谨的理论体系之前，人们（即使是欧拉大神的手稿也有错的，也许不是错而是另外体系的数字乱入，比如1+2#+4.。。。+inf=-0.5什么的，在这个抽象知识体系里明显是错的，但是在另外一种抽象方式观点下，确实合理的（因为两者最底层研究的定义假设抽象方式，描述层级，研究层面不一样））都是“瞎算”。数学分析，分析学，大分析部分，学会如何思考才是正确的，什么样的抽象是合理的，自洽的，正确的，学会“为什么而不仅仅是怎么做”，你值得拥有！）数学逻辑推演形成的“数学二级结论，三级结论，高级结论，，，，，”其实只是在几种“从简单现象中抽象提炼的严谨正确的数学公理定义”推演出来的结论！所以，黎曼几何甚至领先于相对论出现百年！但是，不同的认知条件下，抽象出来的定义证明公理约定，是进化的，必须满足实验的要求。比如牛顿发现并且假设（或者说定义为）三大定律；，假设这个是对的，是不需要i证明就正确（不证自明）的情况下，建立了牛顿力学。麦克斯韦发现众多的电磁现象公式定理，可以化简，抽象为4大基本假设，然后1生2，2生3，3生万物推演出了电磁学！物理学家爱因斯坦假设了时空曲面，解释超光速新的“实验检验条件下的不言自明看起来很正确的知识，定义为“公理””。为了统一电磁力，强力，弱力，又有科学家假设“各种对称性”，提出“标准理论”。然后为了整合4中基本力，物理学家又提出“超对称性弦”的假设，，，，，，，物理学家们抽丝剥茧，只为减少各种<strong>人为定义</strong>的“<strong>不言自明的假设</strong>”，越来越接近那个最本质上面的“真理=自然哲学”。因为科学是相通的，是“自洽的”，是满足抽象层面的“对称的”。</p>
+<p>“实验”，是检验真理（一定社会阶段下认识到的自然哲学，描述自然哲学的一种抽象认为的数学物理模型）的唯一标准。</p>
+<p>计算机，在我看来，是一种人造的“仿生”，是一种对自然模拟的结果的“仿真实验室”（检测为了描述自然现象而抽象出来数学物理模型，的描述效果=正确性），所以利用描述自然哲学运作规律的数学物理语言，我们可以用计算机模拟，做“实验”，可以观察我们对自然的抽象描述—是否正确。。当然，需要满足计算机条件，会在一定的当下社会认识能力的条件下做出让步，比如数值积分，计算方法等。当然，因为计算机似乎把现实模拟仿真得太好了，有点像脱缰的野马，有好有坏，说起来又是长篇大论了，歇笔不谈，有想法就在另外一篇长文里谈好了。【】（计算机，让分享变得更加方便，让世界更美好，究极得仿真，人工智能。）</p>
+<p>数学上，物理上，只要是“实验检验真理”考验下没能通过考验的，对现实自然哲学=真理=自然现象运作规律 的仿真模型就不对！就必须更改假设，更改定义，拓宽假设。甚至往更高的角度上进军，把定义公理更加抽象化，类比推演向高维空间，<strong>扩展定义</strong>。</p>
+<p>举个例子，同样是“向量”，牛顿的向量，和线性代数里的向量是不一样的。同样是“空间”，不同学科中的空间是不一样的。同样是展开式，实数定义在下e的展开，和复数定义下e的意义是不一样的！！！！！！！！！！</p>
+<p>还有就是你会发现二元函数跟复数很像。向量，可以把定义更加抽象化，然后，把它看作“二维张量”。复数也是，求<strong>解这条方程</strong>（复分析可视化）的时候，你会发现如果把二维简单平面的连续严谨地定义为处处可导的时候，你会发现不够用了，所以就会想办法去定义一种“解析函数”。其实很多数学领域的研究对象是极其特殊的情况，更多的情况下，你写不出一条曲线的函数（已经证明连续的曲线一定能写出函数，哪怕是无穷项的泰勒傅里叶展开等等方法，但是现实生活中更多特例，所以我们学习分析学，明白什么情况下，这个定理能用，什么情况下不能用。）很多数学研究的对象，是极其特殊情况下的特例，因为现实实在是太复杂了，所以我们一般选择先简单的入手研究，假设出比较简单的模型。</p>
+<p>宏观得认知知识感性上面得剧透，，但你利用知识自己开始推演证明，你会发现一些以后会学到的知识，你会很自然地想到，你也能“重走长征路”，学习，其实重走大牛的路，去发现，去探索，去证明得一种“你自己探索描绘自然哲学的科学”。《计算机原理》书中作者说的一句话我非常地喜欢：你不能说理解了大概的原貌是怎么回事明白了这门学科，只有深入细节，你才能加深自己的理解，而不只是浅层的理解认知。说“我已经懂了宏观的意义了，所以技术细节我不管，这是一种不负责任的借口。”举个例子，只有当你实际亲笔跟着计算链接复变函数的“欧拉公式”，你在能真正地理解，甚至得出自己的看法，我认为欧拉公式是笛卡尔坐标系和圆坐标系两种不同抽象方式的必然转化公式，欧拉其实是“发现了”，而不是发明了，欧拉公式。数学物理的公式定理，更多情况下其实只是我们对现实的一种抽象，我们人类为了揭示自然规律而进行的一种“逻辑抽象”，数学就是这样“逻辑抽象出来，为了描述自然哲学语言”</p>
+<p>因为只要是线性无关组的假设基向量，一定能够推演，张成相同的“知识空间”，所以B,E可以作为描述电磁定律的基本假设的同时，取他们散度得到的ab同样能够描述磁场世界的自然规律。用什么，只是因为科学家大牛发现的历史遗留问题。甚至根据“磁场是电场力的相对论效果！”，我们可以用B描述E,或者用E推出B.</p>
+<p>#自然哲学中的数学物理</p>
+<p>我其实非常喜欢数学，因为数学是生动形象的，数学描绘的是现实生活中的事物，就像当我高数的时候学到了其实是因为单纯地喜欢。但是，可能，这就是一个门外汉好高骛远，眼高手低，偷窥数学大厦的美的门外汉吧。我有些总与有一天能够登堂入室，进去数学殿堂的憧憬。可能是处于同样的原因，看过有人说的一句话，计算机的人都习惯性跪舔学数学的人，深以为然。可能不是爱敲代码的Ie工程师不是好的数学家吧</p>
+<p>扩展定义，面向对象，“找不到对象”Objecton可以是研究对象里面很多的翻译，因为月抽象高级，预热需要相信的语言一样，数学见们新创建了了一些词，或者旧词新义扩展定义</p>
+<p>路口ihi和见面会v斤斤计较急急急急急急急急急急急急急急急</p>
+<p>653156468543896465655555555555555555555555555555</p>
+<p>Gitbook我的生命哲学，中英。究极人工智能聪明病小说。被窝历险记。上传各种B站视频。Haskell因而学lamnda表达式演算。MC游戏录屏做动画片，ppt析出mp4动画，超低成本做动画，想法是最重要的。程序员们已经贴心滴为你铺好了路。你可以通过各种软件做学习视频。比如用火星游戏录屏做的剧情的火星剧情简介。比如用游戏建模介绍物理电磁学4公式。比起用MC做的我的三体。比如用python自己撸代码出来视频的3b1b，甚至是MIT课程各种mathematics析出的数学物理笔记本，马同学等利用数学绘图软件做的公众号动图，比如学渣乐园用的绘图板。或者说是乐学高考，的大电影，看广告式的学习视频，，，，，，。教育事业是一块大蛋糕，已经很多人在做了，联手大思教育超强记忆术做个教学漫画之类的。</p>
+<p>有些时候，可能不是找不到饭撤，而是价值观不对，精神足够的物质没有得到满足而已。谁不想发财？可是有些事真的不挣钱，一些搞基础科学的，领先时代太久，太抽象，没有实际工程应用挣不了钱，也还是没办法的。高铭《天才在左疯子在右》说过一个观点，人类社会运作像一个蚂蚁群，整体可以看做一个生物，每个人类个体都只是一个细胞。我们都有自己的价值体现，哪怕是(;东野圭吾笔下的恶女，也在传递着自己的价值观)</p>
+<p>TaoZheXuan博客</p>
+<p>比如阿狸教我神奇的矩阵，玄度散度梯度的pdf和那个台湾人讲授的博客</p>
+<p>因为很多时候在一下数学群能看到一些人学习的时候怀着和我相同的疑问，总是觉呃很开心</p>
+<p>有时候看书自己思考比问大牛好，跟比听课灌输知识强。高人点波，才是最难能可贵的</p>
+<p>只有你做出一点事情，让别人看到你的利用价值，世界才会待你温柔。当然，初学者敢于当伸手党也是合理的</p>
+<p>好的政治制度，应该是让每个人都有私心，并且在趋利避害的谋利过程中互惠互利</p>
+<p>到时候，可能每个人在！！！用中学！！！才是最有限的学习方法，需要什么知识学什么知识，触手可得。这样，如果大家都发挥自己的主观能动性，积极做好自己的贡献，未尝不是一个人类命运共同体的(工作细胞)</p>
+<p>实体大学，可能就不存在了，只有幕课，在线深入浅出触及知识本质的云上资料</p>
+<p>感觉其他学科在线知识共享还不够，也许等程序员们做出更方便你们懂数学，懂物理的各个学科的人，能想上面所说的各种知识传播方式一样，把只是传播给更多的人手里。那时候，可能学习成本会下降很多，知识也不存在壁垒，更多人能随心所欲学习东西的时代会来临</p>
+<p>感谢开源知识分享，比如最近看到的一个动手学深度学习的项目，真是让我深有感触，牛逼哄哄糊我一脸</p>
+<p>为什么本文像疯子一样原创开源？因为github真是一个完美的网站。可能是因为刚好跟计算机熟悉，所以你会发现计算机方面的在线教程要多少有多少，而且要多精美又多精美，什么菜鸟教程，博客选csdn.W3cschool.实验楼，源码，而且写框架的，造轮子的大佬要多少有多少</p>
+<p>学会考研数学学习笔记公布</p>
+<p>对了，基于离散的计算机和连续可微的自然不一样，但是可以通过很小的差分分当做微分来用（这算不算一个个量子，，，鬼扯），其实是因为，美妙的数值积分，积分变换，计算方法等理论。至于想哲学一样的实分析，陶哲轩告诉我们，其实是在用最严谨，最正确的思维方式告诉我们为什么那些数学定理是对的，有什么假设条件，如何正确认识数学从逻辑学层面上讲的合理性。难怪我最敬佩的褚铭数学老师告诉我说，数学好的仅仅代表他逻辑推理严密，和其他情商智商无关。至于奥数刷题什么的，我自己的观点来看，其实是一种跳脱高考外的新途径选拔人才吧。虽然也有一些有条件的人上奥数补习班刷真题学套路什么的。但是，数学研究，计算的算理明白，计算直觉可能就是这样做题刷出来的呢。因为有些运算，真是手熟而已。;数学，能动笔计算的人真的牛逼。</p>
+<p>为什么没有三元数而有四元数？坦白说，我不知道。克莱因说黎曼那种物理数学大一统的互相辅助学习才是真正的学习方法。</p>
+<p>正是因为降维自恰，学数学越往上学越发现原有的定理只是更好等级的数学的抽象降维截面，比如复变函数实轴截面就是实数，再比如复数区间内处处=解析函数，可以对应着傅里叶变化或者高斯变换的用同族曲线作为最基本的向量去表示其曲线，就是三维想二维塌缩，濡化，就像是三体里面的…二向箔攻击，笑。:解析函数无穷区间内处处可积分对应着积分对应的其实是实变函数所描述的几何里面的泰勒展开公式！！！而欧拉公式链接着复变函数和实变函数的桥梁，其实就是因为滴卡尔坐标系描述自然所用的数学语言，和轴坐标系下描述的数学语言之间必然的转化关系。于是有的大牛干脆搞个复数，i代表旋转90°，用和谐的二元数来表示高维空间，其实我觉得完全可以把复数看作是一个二元向量，1，i分别是他的单位正交线性无关向量组，因此，物理描述磁电场，描述几何图形变换的数学语言非他莫属，(复分析可视化)，了解一下。在这，如果真的喜欢，还可以看看(趣味数学相关的知识，数学其实是一种现实抽象出来的语言，用来描述真真切切的真实世界自然哲理)。比如三大数学常数中等，e蕴含着的无穷分割区间没固定速率自增的规律也是对应着很有意思的自然哲学。数学很多研究的东西都是:发现:！而不是创造。只是发现了自然哲学而已！！！但是，威力无穷</p>
+<p><img src="_v_images/看到一个不错的想法_1536028092_23707.png" alt="看到一个不错的想法"></p>
+<p>马同学是这么理解问题的</p>
+<p>真好。<img src="_v_images/说地真对这是自己悟道_1536028260_29633.png" alt="说地真对这是自己悟道的猜想却不一定是正确的"></p>
+<p>学习理所应当接受已有结论把他记住，是一种嘎效率的考试技巧，但是不能不说，专研一下知识来源，真的有意思，理所应当的没妙不可言。《欧姆社学习漫画》好书！</p>
+<p>3b1b,马同学，，，，，，，越来越多人更加地传递他们学到的知识，技术爆炸，知识膨胀的时代，可能现在知识越来越透明了，越来越多人传播着这个希望。学习数学这事儿有多么地有意思</p>
+<p>让你看到数学真真切切描述自然哲学的美妙，当然，有个PDF我觉得讲的很好的。还有就是，推荐一个Pdf讲解散度旋度的。统计就更加有意思了，现实生活中基本用得最多的就是统计了，统计之都了解一下。</p>
+<p>让你在真真切切地知道这是什么现实实物问题抽象出来的数学概念</p>
+<p>黎曼的数学物理大统一学习是真的有趣，比如学校高超的课程设计，让我们在学习物理电磁学的时候接触到数学里面的旋度，散度</p>
+<p>最有趣的是什么呢？看过一篇文章，利用数学建模学习自然哲学，虽然槽点满满，但是数学建模的确是一个好东西。实际问题抽象提炼，用数学语言描述，落实到已知的模型算法，从而借助计算机解决实际问题。其实，科学工程项目的解决，可以说都是，数学建模吧</p>
+<p>因为数学是描述自然的抽象化语言，物理，则是利用数学语言描述自然哲学的规律。而计算机，拉近你我，计算机的模拟可以说是以光速做实验，比如matlab的数学实验，看到mathamatica画的物理图，python等编程机器需要实现解决现实问题。</p>
+<p>数学大厦博大精深，我只能说自己是兴趣广泛的门外汉，跨学科一方面是优势一方面也是劣势。</p>
+<p>学的好的成绩不是一定会100分，但是100分的一定不会学得差，起码说明那是聪明人，懂用什么学什么，更有适应性，更努力，努力也知道正确的方向，而不是看到什么平均着力拼命死磕为什么。也许，筛选出来才是最适应的。考试，其实相对公平，不完美，但是是现在的方案里面相对而言最好的</p>
+<p>注意，极致功利主义些这个说法没有任何贬义的意思，反而是懂得学到什么程度为当下阶段足够用！这说法，其实是表达我心中的佩服钦敬！！。懂什么时候停下来，才是不会陷进去数学的深渊的里面，不可自拔，痛并快乐着。</p>
+<p>说故事天下无敌，做不能有心无力呀</p>
+<p>但是有细节，方便别人实现，也防止学术造假呀</p>
+<p>为什么cnki不要求源码？算法固然重要，语言只是工具。但是细节不影响加深认知呀，更方便改进反思。</p>
+<p>我想，不是因为数学完美诠释自然哲学而美不胜收吗？</p>
+<p>知乎有回答说只有新手强调数学美，高手觉得理所应当。</p>
+<p>其实我不同意这个观点的，理所当然地从自然中抽象出来，猫叔自然的数学语言，不是很强大吗？不是很美吗？书中自有颜如玉，说的应该就是，数学公式本质上其实是一个很好的具体事物的抽象。举个例子，我的拙作——<a href="">事故树建模，逻辑数学抽象下的数学语言，代数==几何，知识抽象的角度不一样而已，所以欧高黎嘉陈中的陈景生先生说，数形结合翅膀双飞</a></p>
+<p>《高中数理化》《高中数学》《江苏那本杂志都是好东西》，如果你喜欢的话。</p>
+<p>看书学习最快</p>
+<p>只有看书和圣人聊天，仿佛面提耳命，是最有用的</p>
+<p>其实自己只有自己算过一遍，去体悟才有收获。</p>
+<p>碎片话知识让你看到别的总结精华误以为自己懂了</p>
+<p>想做的太多</p>
+<p>都只是谋生村，太难了，时间有限，什么都想学？怎么办？只能做出舍弃一部分</p>
+<p>没人关系知识本身是什么</p>
+<p>那意味着$_$，好工作</p>
+<p>我发现越是没文化，如我妈，越看中考试成绩</p>
+<p>虽然背后改造看书，但是碎片话知识能融入他人认识，方便你看书入门学习</p>
+<p>知乎微信也是程序员改变世界的利益，李小龙，知乎上面主动搜索能得到有价值的认识答案</p>
+<p>或者物理科普达人写得各种书，刘昌海的物理博客bala，美翻了</p>
+<p>感谢网络时代，让知识触手可及！！！1美不胜收。</p>
+<p>�</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/11/人老了就爱回想当年/" rel="next" title="人老了就爱回想当年">
+                <i class="fa fa-chevron-left"></i> 人老了就爱回想当年
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/01/分享一次IE学会和大创项目的官网/" rel="prev" title="Two-Website">
+                Two-Website <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tridu33</p>
+              <p class="site-description motion-element" itemprop="description">大创活动文件分享型网站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数学是描述自然哲学的抽象语言"><span class="nav-number">1.</span> <span class="nav-text">数学是描述自然哲学的抽象语言</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tridu33</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

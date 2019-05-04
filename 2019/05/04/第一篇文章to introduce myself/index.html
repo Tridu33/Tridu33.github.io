@@ -1,42 +1,715 @@
-include mixins
+<!DOCTYPE html>
 
-extends partial/layout
 
-block site_title
-    != page.title + " · " + config.title
 
-block description
-    - var desc = page.desc || strip_html(page.content).replace(/^\s*/, '').replace(/\s*$/, '').substring(0, 150);
-    meta(name="description", content=desc)
+  
 
-block content
-    .autopagerize_page_element: .content: .post-page
-        include mixins
-        +make_post(page, true)
-        .share
-            span= __('share')
-            | &nbsp;
-            span.soc
-                a.fa.fa-bookmark(href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();", ref="nofollow", target="_blank")
-            span.soc
-                a.fa.fa-weibo(href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&title=',e(d.title),'&appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));")
-            span.soc
-                a.fa.fa-twitter(href=url_for("http://twitter.com/home?status=" + "" + config.url + "/" + page.path + "%20" + config.title + "%20" + page.title + ""))
-        - var prev = page.prev ? page.prev.path : false;
-        - var next = page.next ? page.next.path : false;
-        .pagination
-            p.clearfix
-                if prev
-                    span.pre.pagbuttons
-                        a(role="navigation",href=url_for(prev), title=page.prev.title)
-                            i.fa.fa-angle-double-left
-                            |&nbsp;
-                            != __('prev_post')+': ' + page.prev.title
-                if next
-                    span &nbsp;
-                    span.next.pagbuttons
-                        a(role="navigation",href=url_for(next), title=page.next.title)
-                            != __('next_post')+': ' + page.next.title
-                            |&nbsp;
-                            i.fa.fa-angle-double-right
-        include partial/comments
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Welcome To The Blog Of Tridu³³.我,打算在这儿上传一些自己喜欢的东西以供同好们玩乐，毕竟我是一个热爱学习，兴趣爱好广泛的人，爱刨根问底的笨蛋。 Support or Contact用遍很多的网站论坛写作博客，发现自由自在的自建博客虽然完全可控，但是发现 写作吗，果然还是生态最为重要 不单是他人的鼓励支持很重要，其次还是为了分享自己的想法！人果然还是社会性的群居动物—社">
+<meta name="keywords" content="Tridu33">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第一篇文章 to introduce myself">
+<meta property="og:url" content="http://yoursite.com/2019/05/04/第一篇文章to introduce myself/index.html">
+<meta property="og:site_name" content="Tridu33">
+<meta property="og:description" content="Welcome To The Blog Of Tridu³³.我,打算在这儿上传一些自己喜欢的东西以供同好们玩乐，毕竟我是一个热爱学习，兴趣爱好广泛的人，爱刨根问底的笨蛋。 Support or Contact用遍很多的网站论坛写作博客，发现自由自在的自建博客虽然完全可控，但是发现 写作吗，果然还是生态最为重要 不单是他人的鼓励支持很重要，其次还是为了分享自己的想法！人果然还是社会性的群居动物—社">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-04T15:04:06.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第一篇文章 to introduce myself">
+<meta name="twitter:description" content="Welcome To The Blog Of Tridu³³.我,打算在这儿上传一些自己喜欢的东西以供同好们玩乐，毕竟我是一个热爱学习，兴趣爱好广泛的人，爱刨根问底的笨蛋。 Support or Contact用遍很多的网站论坛写作博客，发现自由自在的自建博客虽然完全可控，但是发现 写作吗，果然还是生态最为重要 不单是他人的鼓励支持很重要，其次还是为了分享自己的想法！人果然还是社会性的群居动物—社">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/04/第一篇文章to introduce myself/"/>
+
+
+
+
+
+  <title>第一篇文章 to introduce myself | Tridu33</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Tridu33</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">学海无涯妙生津</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/04/第一篇文章to introduce myself/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Tridu33">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Tridu33">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第一篇文章 to introduce myself</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-04T19:02:20+08:00">
+                2019-05-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Welcome-To-The-Blog-Of-Tridu³³"><a href="#Welcome-To-The-Blog-Of-Tridu³³" class="headerlink" title="Welcome To The Blog Of Tridu³³."></a>Welcome To The Blog Of Tridu³³.</h1><p>我,打算在这儿上传一些自己喜欢的东西以供同好们玩乐，毕竟我是一个热爱学习，兴趣爱好广泛的人，爱刨根问底的笨蛋。</p>
+<h3 id="Support-or-Contact"><a href="#Support-or-Contact" class="headerlink" title="Support or Contact"></a>Support or Contact</h3><p>用遍很多的网站论坛写作博客，发现自由自在的自建博客虽然完全可控，但是发现</p>
+<p><strong>写作吗，果然还是生态最为重要</strong></p>
+<p>不单是他人的鼓励支持很重要，其次还是为了分享自己的想法！人果然还是社会性的群居动物—社会人。</p>
+<p>这是我第一篇自建博客文章，也让它成为我最后一篇放在这里的博客文章吧。</p>
+<p>以后会以自己的github_VnoteBook项目管理个人笔记为主，觉得有比较成熟或者适合分享出去的思想，资源或者项目，才会写到自己的Blog了吧。</p>
+<p>经过这段时间的认识，果然发现：</p>
+<p>CSDN写技术类博客，简书写自己关于学院式思考的学习比较合适</p>
+<p>Bilibili和知乎用来发布自己比较成熟的项目</p>
+<p>Github系网站，名副其实，果然是做项目写软件做工程最好的网站。</p>
+<p>我的主页们：</p>
+<ol>
+<li><p><a href="https://github.com/Tridu33?tab=repositories" target="_blank" rel="noopener">Github大杂烩–项目++</a></p>
+<p>这里写些博客，各种学习的相关笔记，Plant Simulation笔记资料分享，Matlab笔记资料分享，微信小程序，大创机器学习算法动作分析官网，练手代码仓库，翻译项目，吉林大学校歌C++版+Matlab版，学生通信录课程设计，不正经的Matlab有趣代码搜集，我和小伙伴们创建的吉林大学工业工程学会我写的官网，各种学习笔记等等。</p>
+</li>
+<li><p><a href="https://space.bilibili.com/12107400" target="_blank" rel="noopener">Bilibili的Up主页</a></p>
+<p>这里写些有趣代码效果展示，翻译项目展示，建模动画，使用PPT自制的演示视频……</p>
+</li>
+<li><p><a href="https://zhuanlan.zhihu.com/c_1061680150701318144" target="_blank" rel="noopener">知乎专栏</a></p>
+<p>这里分享学习笔记项目分享等等，暂时有Matlab文学编程共享笔记项目和Plant Simulation项目……</p>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_38730945" target="_blank" rel="noopener">SCDN博客–技术类反思</a></p>
+<p>这里写些技术分享，读书笔记，技术思考和心得感悟，一些小技巧分享，推荐……</p>
+</li>
+<li><p><a href="https://www.jianshu.com/u/fe75fbfad291" target="_blank" rel="noopener">简书博客–学院式思考</a></p>
+<p>这里写些创意，脑洞，反思，思考，心得笔记，大一沉迷建模的成果效果汇……</p>
+</li>
+<li><p><a href="https://gitee.com/Tridu/projects" target="_blank" rel="noopener">码云项目</a></p>
+<p>这里主要分享Matlab超多资料……</p>
+</li>
+<li><p><a href="https://www.zybuluo.com/Tridu/note/1238184" target="_blank" rel="noopener">cmdMarkdown系列写作</a></p>
+<p>这里以前写过一些文章，感觉界面挺好用的，但是因为导出要收费，弃坑了，分享的文章一部分还在……</p>
+</li>
+</ol>
+<p>其他没什么资源好分享的论坛/账户/微信公众号等等，就不提也吧。<br>没创意的我能想出来的ID基本也就只有Tridu和Tridu33了，脸皮薄，希望认识的小伙伴别戳穿身份。</p>
+<h2 id="I’s-am-Tridu³³"><a href="#I’s-am-Tridu³³" class="headerlink" title="I’s am Tridu³³"></a>I’s am Tridu³³</h2><p>you can also call me Triduせんせ,as well as the name”杜老三”.<a href="https://tridu33.github.io/" target="_blank" rel="noopener">我的博客Tridu³³</a></p>
+<p>I can use the <a href="https://github.com/Tridu33/Blog_Of_Tridu33/edit/master/README.md" target="_blank" rel="noopener">editor on GitHub</a> to maintain and preview the content for my website in Markdown file.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">=====================================================================================</span><br><span class="line">我./⁰_⁰\.精通各种编程语言</span><br><span class="line">====================================================================================</span><br><span class="line">	的Hello_World.</span><br><span class="line">====================================================================================</span><br><span class="line"></span><br><span class="line">我正在学习：</span><br><span class="line"></span><br><span class="line">=====================================================================================</span><br><span class="line">- 机器瞎学</span><br><span class="line">- 数据掩埋</span><br><span class="line">- 模式混淆</span><br><span class="line">- 人工智障</span><br><span class="line">- 深度遗忘</span><br><span class="line">- 神经掉线</span><br><span class="line">- 计算机幻觉</span><br><span class="line">=====================================================================================</span><br><span class="line">的正确拼写和英语读音!</span><br><span class="line">=====================================</span><br></pre></td></tr></table></figure>
+<p>Whenever I commit to this repository, GitHub Pages will run <a href="https://jekyllrb.com/" target="_blank" rel="noopener">Jekyll</a> to rebuild the pages in my site, from the content in my Markdown files.</p>
+<h3 id="喜欢学习"><a href="#喜欢学习" class="headerlink" title="喜欢学习"></a>喜欢学习</h3><p>特别是物理，但是在学习物理的时候，我发现生动形象的物理都是用精确的数学语言描述的，其实数学才是描述这个世界最为本质的语言！我知道自己还差的远呢！计算机是物理数学的实验场所，因为他是为了实现描述物理世界的数学语言的工场，所以，我会在这里分享一些自己喜欢的代码¹²³或笔记⁴⁵⁶⁷⁸⁹                      </p>
+<h4 id="私以为"><a href="#私以为" class="headerlink" title="私以为"></a>私以为</h4><p>学习一门科学，不应该是照本宣科地读书，而应该思考知识的本质以及他本身的来源，自己跟着建立起这门学科知识的基石。引用一句话“数学大厦教程的那一天，知识的脚手架也被拆了。”</p>
+<p>言至于此，我又想引用大佬的话了~~苟利国家 ~~虽然有点长，不过我很喜欢，所以如果你不喜欢，忍忍吧：</p>
+<blockquote>
+<p><em>著名数学家克莱因，在他的名著高观点下的初等数学，第一卷，关于数学，现代发展及一般结构的第一节，中指出，数学的发展和教学有三种进程及进程，a，进程b和进程c，进程a的特点是强调概念的明确性，逻辑上的无懈可击，方法的纯粹性，逐步演绎，环环相扣，绝无必要的引申，总之，使数学成为严整的体系，其表述方式则是，定义定理，证明，推论等等，每句话每个式子都有根据，进程b，这是克莱茵特别推崇的进场，则强调数学概念的生成和发展，强调各个分支的互相联系，，方式则主张夹叙夹议，娓娓道来，生动活泼，发人深省，已故的吴大任教授，在为高观点下的初等数学中译本写的序言中说，克莱因的思想可以用荣华二字来形容，概括，数学与物理学的融合，数学各分支的融合，逻辑推理与直觉的融合，还有数学的逻辑展开与历史发展的融合。——<strong>《复分析可视化》</strong>中译本</em></p>
+</blockquote>
+<p>​    </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">annotation，个人比较精通面向佛系的编程语言，如有雷同，算我抄你。</span><br><span class="line"></span><br><span class="line"><span class="code">                       _oo0oo_</span></span><br><span class="line"><span class="code">                      o8888888o</span></span><br><span class="line"><span class="code">                      88" . "88</span></span><br><span class="line"><span class="code">                      (| -_- |)</span></span><br><span class="line"><span class="code">                      0\  =  /0</span></span><br><span class="line"><span class="code">                    ___/`---'\___</span></span><br><span class="line"><span class="code">                  .' \\|     |// '.</span></span><br><span class="line"><span class="code">                 / \\|||  :  |||// \</span></span><br><span class="line"><span class="code">                / _||||| -:- |||||- \</span></span><br><span class="line"><span class="code">               |   | \\\  -  /// |   |</span></span><br><span class="line"><span class="code">               | \_|  ''\---/''  |_/ |</span></span><br><span class="line"><span class="code">               \  .-\__  '-'  ___/-. /</span></span><br><span class="line"><span class="code">             ___'. .'  /--.--\  `. .'___</span></span><br><span class="line"><span class="code">          ."" '&lt;  `.___\_&lt;|&gt;_/___.' &gt;' "".</span></span><br><span class="line"><span class="code">         | | :  `- \`.;`\ _ /`;.`/ - ` : | |</span></span><br><span class="line"><span class="code">         \  \ `_.   \_ __\ /__ _/   .-` /  /</span></span><br><span class="line"><span class="code">     =====`-.____`.___ \_____/___.-`___.-'=====</span></span><br><span class="line"><span class="code">                       `=---='</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="code">     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></span><br><span class="line"> </span><br><span class="line"><span class="code">               佛祖保佑         永无BUG</span></span><br><span class="line"></span><br><span class="line">if Tridu³³ said he know How to Turn an elephant with Ps</span><br><span class="line"></span><br><span class="line">then</span><br><span class="line"></span><br><span class="line">He is a idol,</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">He is a idiot!</span><br><span class="line"></span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<p><strong>加粗Bold</strong> and <em>意大利斜体Italic</em> and <code>Code代码块</code> text。</p>
+<p><a href="https://tridu33.github.io/" target="_blank" rel="noopener">Tridu³³</a> </p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">版本声明：</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">（Syntax highlighted code block语法高亮的代码块）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="code">                               ╭════════════════════════╮</span></span><br><span class="line"><span class="code">                               ║         〖Tridu³³〗     ║</span></span><br><span class="line"><span class="code">        ╭══════════════════════┤            Blog         ├══════════════════╮</span></span><br><span class="line"><span class="code">        ║                      ║   https:这里.就是.cn     ║                  ║</span></span><br><span class="line"><span class="code">        ║                       ╰════════════════════════╯                  ║</span></span><br><span class="line"><span class="code">      　║                      ★    关于我的网站     ★                      ║ </span></span><br><span class="line"><span class="code">        ║限参考、教学与个人使用交流！请勿用于商业目的。                         ║ </span></span><br><span class="line">  　  　║--------------------------------------------------------------     ║         </span><br><span class="line"><span class="code">      　║                      ★   关于我的文件格式  ★                      ║</span></span><br><span class="line">  　    ║      |----------------------------------------------|             ║</span><br><span class="line"><span class="code">        ║如果文件扩展名是RAR,该文件为压缩格式！                                ║</span></span><br><span class="line"><span class="code">      　║ 后缀名为*.chm、*.exe的电子书，不需安装任何软件即可直阅读。          ║</span></span><br><span class="line"><span class="code">        ║ 后缀名*.pdf的电子书，需安装Arcobat Reader软件。                 ║</span></span><br><span class="line"><span class="code">        ║ 后缀名为*.pdg和*.001,*.002......的电子书，需安装超星阅览器         ║</span></span><br><span class="line"><span class="code">        ║ 后缀名*.wdl的电子书,需安装DyanDoc Free Reader软件。             ║</span></span><br><span class="line"><span class="code">        ║ 后缀名为* .ceb、*.xeb的电子书，需安装方正的Apabi Reader软件        ║</span></span><br><span class="line"><span class="code">        ║ 后缀名*.nlc的电子书，需安装Book Reader For NLC Version软件      ║</span></span><br><span class="line"><span class="code">        ║ 记事本，编译器才是万能的文件打开软件！                       ║</span></span><br><span class="line"><span class="code">        ║                                                                   ║</span></span><br><span class="line"><span class="code">      　║提示:本文件纯属我太闲，恶搞的。                                       ║</span></span><br><span class="line">　      ║----------------------------------------------------------------   ║</span><br><span class="line"><span class="code">        ║关于我的博客有什么批评指正 ~~ 瞎逼逼 ~~的建议~~ 意见./⁰_⁰\.~~，        ║</span></span><br><span class="line"><span class="code">        ║网站管理员长期掉线中...有事烧纸                                       ║</span></span><br><span class="line"><span class="code">        ║     欢迎提出您的建议或意见，请发邮件:2055969978@qq.com.com           ║</span></span><br><span class="line"><span class="code">        ║                  -----------------------                          ║</span></span><br><span class="line"><span class="code">    　　║                         默认的幸运数字:454                         ║</span></span><br><span class="line"><span class="code">        ║          ╭───────────────────────────────────────────╮            ║</span></span><br><span class="line"><span class="code">        ╰══════════┤   ★★★★★★  Tridu³³.com ★★★★★★★      ├════════════╯</span></span><br><span class="line"><span class="code">                   ╰───────────────────────────────────────────╯</span></span><br><span class="line"><span class="code">           </span></span><br><span class="line">--------------------------------------------------------------------------------     </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="code">    </span></span><br><span class="line">要起床了？</span><br><span class="line"></span><br><span class="line">　　　∩∩</span><br><span class="line"></span><br><span class="line">　　（´･ω･）</span><br><span class="line"></span><br><span class="line">　 ＿|　⊃／(＿＿_</span><br><span class="line"></span><br><span class="line">　／ └-(＿＿＿_／</span><br><span class="line"></span><br><span class="line">　￣￣￣￣￣￣￣</span><br><span class="line"></span><br><span class="line">算了，再睡一会吧</span><br><span class="line"></span><br><span class="line">　　 ⊂⌒／ヽ-、＿_</span><br><span class="line">　／⊂_/＿＿＿＿ ／</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/01/分享一次IE学会和大创项目的官网/" rel="next" title="Two-Website">
+                <i class="fa fa-chevron-left"></i> Two-Website
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Tridu33</p>
+              <p class="site-description motion-element" itemprop="description">大创活动文件分享型网站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Welcome-To-The-Blog-Of-Tridu³³"><span class="nav-number">1.</span> <span class="nav-text">Welcome To The Blog Of Tridu³³.</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Support-or-Contact"><span class="nav-number">1.0.1.</span> <span class="nav-text">Support or Contact</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I’s-am-Tridu³³"><span class="nav-number">1.1.</span> <span class="nav-text">I’s am Tridu³³</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#喜欢学习"><span class="nav-number">1.1.1.</span> <span class="nav-text">喜欢学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#私以为"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">私以为</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tridu33</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
